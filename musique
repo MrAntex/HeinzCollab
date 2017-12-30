@@ -1,0 +1,111 @@
+ case (prefix + "playlist") :
+             var playlist = message.content.split(' ');
+            playlist.shift();
+            playlist = playlist.join(' ');
+if((playlist)==("beatles")){
+
+    search("https://www.youtube.com/watch?v=uSM5MpKSnqE", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+}
+if((playlist)==("nawak")){
+      search("https://www.youtube.com/watch?v=ykwqXuMPsoc", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+  search("https://www.youtube.com/watch?v=mGgipFeAXg8", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+  search("https://www.youtube.com/watch?v=eGLcT1GaYrU", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+  search("https://www.youtube.com/watch?v=tojicre_Qe8", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+  search("https://www.youtube.com/watch?v=mj-v6zCnEaw", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+  search("https://www.youtube.com/watch?v=qRC4Vk6kisY", opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                music.setTabEnd(results[y].link);                
+})
+}
+break; 
+
+        case (".link") :
+            message.delete(message.author);
+            var link = message.content.split(' ');
+            link.shift();
+            link = link.join(' ');
+            console.log(link);
+            music.setTabEnd(link);
+            break;
+        case ("Heinz,volume") :
+            message.delete(message.author);
+            var link = message.content.split(' ');
+            link.shift();
+            link = link.join(' ');
+            music.volume(link/100);
+            break;
+
+
+
+
+
+
+
+
+                case ("Heinz,musique") :
+          message.delete(message.author);
+            if (!music.getVoiceChannel()) return message.reply("Sauf votre respect, vous devriez vous connecter à un salon vocal au préalable.");
+            if (music.getTab(0) == null) return message.reply("Je ne trouve pas de musique que je pourrais jouer, mais vous pouvez en ajouter si vous le souhaitez.");
+            else {
+                 message.channel.sendMessage("Bien Monsieur, accrochez votre slip, DJ Seb arrive.");
+                music.voice();
+            }
+            break;
+        case ("Heinz,pause") :
+            message.delete(message.author);
+            music.pause();
+            break;
+        case ("Heinz,reprends") :
+            message.delete(message.author);
+            music.resume();
+            break;
+
+        case ("Heinz,stop") :
+            message.channel.sendMessage("Bouuuuh, regardez-le, il a éteint la musique !");
+            message.channel.sendMessage("SHAME " + message.author);
+            message.channel.sendMessage("SHAME " + message.author);
+            message.channel.sendMessage("SHAME " + message.author);
+
+            music.stop();
+            
+            break;
+        case ("Heinz,ajoute") :
+            message.delete(message.author);
+            var link = message.content.split(' ');
+            link.shift();
+            link = link.join(' ');
+            search(link, opts, function(err, results) {
+                if(err) return console.log(err);
+                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                message.channel.sendMessage("Bien " + message.author + ", j'ajoute cette musique a la playlist.")
+                message.channel.sendMessage(results[y].link);
+                music.setTabEnd(results[y].link);
+                
+
+            });
+            break;

@@ -1,0 +1,59 @@
+function localStorage(filename)
+{
+	// Get a reference to the file system
+	this.fs = require("fs");
+	// Create an object to hold the localStorage
+	this.data = {};
+	
+	// If there is already a file with the name provided to us then we should load & parse it
+	if(this.fs.existsSync(filename))
+		this.data = JSON.parse(this.fs.readFileSync(filename, "utf-8"));
+	
+	// Create a getter that returns the number of items that are currently in storage
+	this.__defineGetter__("length", function() {
+		return Object.keys(this.data).length;
+	});
+	
+	// Save the filename for future reference
+	this.filename = filename;
+	// Whether we should automagically save changes made to the file system or not
+	this.autoSave = true;
+	
+	// Gets an item from the localStorage
+	this.getItem = function(key) {
+		if(this.data.hasOwnProperty(key))
+			return this.data[key];
+		else
+			return null;
+	};
+	// Saves an item to the localStorage
+	this.setItem = function(key, value) {
+		this.data[key] = value;
+		if(this.autoSave) this.saveData();
+	};
+	// Removes the item stored at a given key from the localStorage
+	this.removeItem = function(key) {
+		var returnStatus = delete this.data[key];
+		if(this.autoSave) this.saveData();
+		return returnStatus;
+	};
+	// Clears the localStorage and deletes the associated 
+	this.clear = function() {
+		this.data = {};
+		this.fs.unlink(this.filename);
+	};
+	// Whether we are curently saving to disk
+	this.isSaving = false;
+	// Saves the localStorage to disk
+	this.saveData = function(key) {
+		return new Promise((function(resolve, reject) {
+			this.isSaving = true;
+			this.fs.writeFileSync(this.filename, JSON.stringify(this.data), "utf-8", function(error) {
+				this.isSaving = false;
+				if(error) reject(error);
+				
+				resolve();
+			});
+		}).bind(this));
+	};
+}

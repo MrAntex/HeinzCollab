@@ -1,0 +1,75 @@
+
+function Lotterie(){
+    this.i = 0;
+    this.tab = [];
+}
+
+Lotterie.prototype.intit = function localStorage(lotterie)
+{
+	// Get a reference to the file system
+	this.fs = require("fs");
+	// Create an object to hold the localStorage
+	this.data = {};
+	
+	// If there is already a file with the name provided to us then we should load & parse it
+	if(this.fs.existsSync(lotterie))
+		this.data = JSON.parse(this.fs.readFileSync(lotterie, "utf-8"));
+	
+	// Create a getter that returns the number of items that are currently in storage
+	this.__defineGetter__("length", function() {
+		return Object.keys(this.data).length;
+	});
+	
+	// Save the lotterie for future reference
+	this.lotterie = lotterie;
+	// Whether we should automagically save changes made to the file system or not
+	this.autoSave = true;
+}
+    
+    Lotterie.prototype.get = function(key){
+// Gets an item from the localStorage
+	
+		if(this.data.hasOwnProperty(key))
+			return this.data[key];
+		else
+			return null;
+    }
+
+    Lotterie.prototype.set = function(key, value){
+	// Saves an item to the localStorage
+	
+		this.data[key] = value;
+		if(this.autoSave) this.saveData();
+    }
+    
+    Lotterie.prototype.del = function(key){
+	// Removes the item stored at a given key from the localStorage
+	
+		var returnStatus = delete this.data[key];
+		if(this.autoSave) this.saveData();
+		return returnStatus;
+    }
+    
+    Lotterie.prototype.clear = function(){
+	// Clears the localStorage and deletes the associated 
+	
+		this.data = {};
+		this.fs.unlink(this.lotterie);
+    };
+    
+    
+	// Whether we are curently saving to disk
+	this.isSaving = false;
+	// Saves the localStorage to disk
+	this.saveData = function(key) {
+		return new Promise((function(resolve, reject) {
+			this.isSaving = true;
+			this.fs.writeFileSync(this.lotterie, JSON.stringify(this.data), "utf-8", function(error) {
+				this.isSaving = false;
+				if(error) reject(error);
+				
+				resolve();
+			});
+		}).bind(this));
+	};
+}

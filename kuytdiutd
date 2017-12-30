@@ -1,0 +1,100 @@
+void main() {
+	int x=0;
+	int y=0;
+	int xcase1=0;
+	int ycase1=0;
+	int xcase2=0;
+	int ycase2=0;
+	int xcase3=0;
+	int ycase3=0;
+	int xcase4=0;
+	int ycase4=0;
+	int xcase5=0;
+	int ycase5=0;
+	int xcase6=0;
+	int ycase6=0;
+	int xcase7=0;
+	int ycase7=0;
+	int xcase8=0;
+	int ycase8=0;
+	int xcase9=0;
+	int ycase9=0;
+	int xcase10=0;
+	int ycase10=0;
+	int a=0;
+	int n=0;
+   reset(10, 10);
+   for (int u=0;u<=10;u++)
+   {
+   	reset(10,10);
+   	xcase1=random(-10,10);
+	ycase1=random(-10,10);
+	xcase2=random(-10,10);
+	ycase2=random(-10,10);
+	xcase3=random(-10,10);
+	ycase3=random(-10,10);
+	xcase4=random(-10,10);
+	ycase4=random(-10,10);
+	xcase5=random(-10,10);
+	ycase5=random(-10,10);
+	xcase6=random(-10,10);
+	ycase6=random(-10,10);
+	xcase7=random(-10,10);
+	ycase7=random(-10,10);
+	xcase8=random(-10,10);
+	ycase8=random(-10,10);
+	xcase9=random(-10,10);
+	ycase9=random(-10,10);
+	xcase10=random(-10,10);
+	ycase10=random(-10,10);
+	
+	setPixel(xcase1,ycase1,"black");
+	setPixel(xcase2,ycase2,"black");
+	setPixel(xcase3,ycase3,"black");
+	setPixel(xcase4,ycase4,"black");
+	setPixel(xcase5,ycase5,"black");
+	setPixel(xcase6,ycase6,"black");
+	setPixel(xcase7,ycase7,"black");
+	setPixel(xcase8,ycase8,"black");
+	setPixel(xcase9,ycase9,"black");
+	setPixel(xcase10,ycase10,"black");
+	sleep(100);
+	
+   }
+   while(a!=1)
+   {
+   	x=random(-10,10);
+   	y=random(-10,10);
+   	setPixel(x,y,"red");
+		if((x==xcase1 & y==ycase1)|(x==xcase2 & y==ycase2)|(x==xcase3 & y==ycase3)|(x==xcase4 & y==ycase4)|(x==xcase5 & y==ycase5)|(x==xcase6 & y==ycase6)|(x==xcase7 & y==ycase7)|(x==xcase8 & y==ycase8)|(x==xcase9 & y==ycase9)|(x==xcase10 & y==ycase10)){
+			sleep(200);
+			setPixel(-2,-2,"black");
+			setPixel(-1,-2,"black");
+			setPixel(0,-2,"black");
+			setPixel(0,-1,"black");
+			setPixel(0,0,"black");
+			setPixel(0,1,"black");
+			setPixel(0,2,"black");
+			setPixel(1,2,"black");
+			setPixel(2,2,"black");
+			setPixel(-2,2,"black");
+			setPixel(-2,1,"black");
+			setPixel(-2,0,"black");
+			setPixel(-1,0,"black");
+			setPixel(1,0,"black");
+			setPixel(2,0,"black");
+			setPixel(2,-1,"black");
+			setPixel(2,-2,"black");
+			a=1;
+		}
+		sleep(200);
+		n++;
+	int prex=x;
+	int prey=y;
+	setPixel(x,y,"white");
+	
+
+	
+   }
+   println("Essais : " + n);
+ }
